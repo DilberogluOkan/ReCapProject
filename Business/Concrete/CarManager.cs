@@ -22,19 +22,23 @@ namespace Business.Concrete
 
         public IResult Add(Car car)
         {
+            if (car.CarName.Length<5)
+            {
+                return new ErrorResult("min 2 karakter gir");
+            }
              _carDal.Add(car);
-            return new SuccessResult();
+            return new SuccessResult( Messages.Verilecekmesaj);
         }
 
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
-            return new SuccessResult("ürün eklendi" );
+            return new SuccessResult("ürün eklendi");
         }
 
         public IDataResult<List<Car>> GetAll()
         {
-            return new DataResult<List<Car>>(_carDal.GetAll(),true,"ad");
+            return new DataResult<List<Car>>(_carDal.GetAll(),true,"mskdlfnlşdfşkljdfjdfn");
         }
 
         public IDataResult<Car> GetById(int carId)

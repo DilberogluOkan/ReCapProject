@@ -1,0 +1,41 @@
+﻿@model Entities.Concrete.Car
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<h3>Yeni Araç Ekle</h3>
+<br />
+<form class="form-group" method="post">
+    @Html.HiddenFor(x => x.Id)
+
+    @Html.Label("Araç Adı")
+    @Html.TextBoxFor(x => x.CarName, new { @class = "form-control" })
+    <br />
+    @Html.Label("Model Id")
+    @Html.TextBoxFor(x => x.BrandId, new { @class = "form-control" })
+    <br />
+    @Html.Label("Renk Id")
+    @Html.TextBoxFor(x => x.ColorId, new { @class = "form-control" })
+    <br />
+    @Html.Label("Model Yılı")
+    @Html.TextBoxFor(x => x.ModelYear, new { @class = "form-control" })
+    <br />
+    @Html.Label("Ücreti")
+    @Html.TextBoxFor(x => x.DailyPrice, new { @class = "form-control" })
+    <br />
+    @Html.Label("Açıklama")
+    @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
+    <br />
+    <button class="btn btn-success">Kaydet</button>
+
+</form>
+@if (TempData["testmsg"] != null)
+{
+    <script type="text/javascript">
+       alert("@TempData["testmsg"]");
+    </script>
+}
+
+
+
