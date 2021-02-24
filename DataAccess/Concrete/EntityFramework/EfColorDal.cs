@@ -8,7 +8,7 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    class EfColorDal : EfRepositoryBase<Color,ReCapContext>,IColorDal
+    public class EfColorDal : EfRepositoryBase<Color,ReCapContext>,IColorDal
     {
        
     }

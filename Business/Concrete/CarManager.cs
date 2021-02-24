@@ -1,9 +1,13 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Unitilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,51 +24,48 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
-        {
-            if (car.CarName.Length<5)
-            {
-                return new ErrorResult("min 2 karakter gir");
-            }
-             _carDal.Add(car);
-            return new SuccessResult( Messages.Verilecekmesaj);
+        { 
+            _carDal.Add(car);
+            return new SuccessResult( Messages.AddSucces);
         }
 
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
-            return new SuccessResult("ürün eklendi");
+            return new SuccessResult(Messages.DeleteSucces);
         }
 
         public IDataResult<List<Car>> GetAll()
         {
-            return new DataResult<List<Car>>(_carDal.GetAll(),true,"mskdlfnlşdfşkljdfjdfn");
+            return new DataResult<List<Car>>(_carDal.GetAll(),true, Messages.ListSucces);
         }
 
         public IDataResult<Car> GetById(int carId)
         {
-            return new SuccessDataResult<Car>(_carDal.Get(p => p.Id == carId),"ekle");
+            return new SuccessDataResult<Car>(_carDal.Get(p => p.Id == carId), Messages.ListSucces);
         }
 
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(),"eklendi");
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(), Messages.ListSucces);
         }
 
         public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.BrandId == brandId),"ürün");
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.BrandId == brandId), Messages.ListSucces);
         }
 
         public IDataResult<List<Car>> GetCarsByColorId(int colorId)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.ColorId == colorId),"eklendi");
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.ColorId == colorId), Messages.ListSucces);
         }
-
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Update(Car car)
         {
             _carDal.Update(car);
-            return new SuccessResult("Güncellendi");
+            return new SuccessResult(Messages.UpdateSucces);
         }
     }
 }
